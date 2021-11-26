@@ -1,31 +1,20 @@
-FROM        --platform=$BUILDPLATFORM debian:stable-slim
+FROM        ghcr.io/parkervcp/yolks:debian
 
 LABEL       author="Nils Gereke" maintainer="mail@wuffy.eu"
 
 LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
-ENV         DEBIAN_FRONTEND=noninteractive
-
-RUN         dpkg --add-architecture i386 \
-				&& apt update \
+RUN         apt update \
 				&& apt upgrade -y \
-				&& apt install -y tar curl gcc g++ lib32gcc-s1 libgcc1 libcurl4-gnutls-dev:i386 libssl1.1:i386 libcurl4:i386 lib32tinfo6 libtinfo6:i386 lib32z1 lib32stdc++6 libncurses5:i386 libcurl3-gnutls:i386 libsdl2-2.0-0:i386 iproute2 gdb libsdl1.2debian libfontconfig1 telnet net-tools netcat tzdata \
-                && apt install -y libfaudio0 wine-devel-i386 \
-                && apt install -y --install-recommends winehq-devel \
-                && apt install -y xfce4 \
-                && echo xfce4-session >~/.xsession \
-				&& useradd -m -d /home/container container
+				&& apt install -y libfaudio0 xfce4
+RUN             echo xfce4-session >~/.xsession
+RUN             useradd -m -d /home/container container
 
-USER        container
+
+
+USER        containerENV
 ENV         USER=container HOME=/home/container
-ENV         WINEDLLOVERRIDES="mscoree,mshtml="
-ENV         DISPLAY=:0
-ENV         DISPLAY_WIDTH=1024
-ENV         DISPLAY_HEIGHT=768
-ENV         DISPLAY_DEPTH=16
-ENV         AUTO_UPDATE=1
-ENV         XVFB=1
 WORKDIR     /home/container
 
 COPY        ./entrypoint.sh /entrypoint.sh
