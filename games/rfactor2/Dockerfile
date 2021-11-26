@@ -11,10 +11,10 @@ RUN         dpkg --add-architecture i386 \
 				&& apt update \
 				&& apt upgrade -y \
 				&& apt install -y tar curl gcc g++ lib32gcc-s1 libgcc1 libcurl4-gnutls-dev:i386 libssl1.1:i386 libcurl4:i386 lib32tinfo6 libtinfo6:i386 lib32z1 lib32stdc++6 libncurses5:i386 libcurl3-gnutls:i386 libsdl2-2.0-0:i386 iproute2 gdb libsdl1.2debian libfontconfig1 telnet net-tools netcat tzdata \
-                && apt install -y libfaudio0 wine-devel-i386
-                && apt install -y --install-recommends winehq-devel
-                && apt install -y xfce4
-                && echo xfce4-session >~/.xsession
+                && apt install -y libfaudio0 wine-devel-i386 \
+                && apt install -y --install-recommends winehq-devel \
+                && apt install -y xfce4 \
+                && echo xfce4-session >~/.xsession \
 				&& useradd -m -d /home/container container
 
 USER        container
