@@ -19,6 +19,7 @@ jobs:
           - arma3
           - fivem
           - source
+          - rfactor2
     steps:
       - uses: actions/checkout@v2
       - uses: docker/setup-buildx-action@v1
