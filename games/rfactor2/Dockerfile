@@ -7,13 +7,11 @@ LABEL       org.opencontainers.image.licenses=MIT
 
 RUN         apt update \
 				&& apt upgrade -y \
-				&& apt install -y libfaudio0 xfce4
-RUN             echo xfce4-session >~/.xsession
-RUN             useradd -m -d /home/container container
+				&& apt install -y libfaudio0 xfce4 \
+                                && echo xfce4-session >~/.xsession \
+                                && useradd -m -d /home/container container
 
-
-
-USER        containerENV
+USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
